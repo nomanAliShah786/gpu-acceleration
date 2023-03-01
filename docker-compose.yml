@@ -1,0 +1,11 @@
+version: "3"
+services:
+  gpu-service:
+    image: botgpu
+    env_file: ./.env
+    build: ./ 
+    ports:
+      - "3006:3006"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules

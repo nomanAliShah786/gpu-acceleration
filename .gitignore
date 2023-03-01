@@ -1,0 +1,10 @@
+node_modules/*
+package-lock.json
+src/martinco/*
+playground.js
+# .env
+# schedules.json
+data/*
+debug.log
+# Errorschedules.json
+web.config
