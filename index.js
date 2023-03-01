@@ -6,7 +6,8 @@ const {executablePath}=require('puppeteer')
 let automation=async() => {
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath:executablePath(),
+    executablePath: '/usr/bin/chromium-browser',
+    // executablePath:executablePath(),
     args: [
       '--enable-software-rasterizer',
       '--enable-features=WebGL2ComputeRenderingContext',
