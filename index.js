@@ -22,12 +22,11 @@ let automation=async() => {
 
   await page.goto('chrome://gpu');
   console.log("New link")
- 
-  const screenshotBuffer=await page.screenshot({ path: 'images/webgl-screenshot.png' });
+ await page.screenshot({ path: 'webgl-screenshot.png' });
   
   // Write the data to a file outside the Docker container
-  const filePath = 'images/webgl-screenshot.png'; // Replace with your desired file path
-  fs.writeFileSync(filePath, screenshotBuffer);
+  // const filePath = 'images/webgl-screenshot.png'; // Replace with your desired file path
+  // fs.writeFileSync(filePath, screenshotBuffer);
   console.log("writing done")
   await browser.close();
 };
