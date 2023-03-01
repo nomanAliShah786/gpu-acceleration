@@ -23,6 +23,13 @@ let automation=async() => {
 
   await page.goto('chrome://gpu');
   console.log("New link")
+  const ul = await (await page.evaluateHandle(`document.querySelector("body > info-view").shadowRoot.querySelector("div:nth-child(3) > ul")`)).asElement();
+  const text = await page.evaluate((ul)=>{
+    return Array.from(ul.children).map(li=>li.textContent)
+  },ul)
+
+  const webGPU=text.slice(-3)
+  console.log(webGPU)
  await page.screenshot({ path: 'webgl-screenshot.png' });
   
   // Write the data to a file outside the Docker container
