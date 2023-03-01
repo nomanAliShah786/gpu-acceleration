@@ -5,7 +5,7 @@ const {executablePath}=require('puppeteer')
 
 let automation=async() => {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     executablePath:executablePath(),
     args: [
       '--enable-software-rasterizer',
