@@ -1,7 +1,9 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const {executablePath}=require('puppeteer')
-(async () => {
+
+
+let automation=async() => {
   const browser = await puppeteer.launch({
     headless: false,
     executablePath:executablePath(),
@@ -28,4 +30,5 @@ const {executablePath}=require('puppeteer')
   fs.writeFileSync(filePath, screenshotBuffer);
   console.log("writing done")
   await browser.close();
-})();
+};
+automation();
