@@ -1,11 +1,10 @@
-
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-
+const {executablePath}=require('puppeteer')
 (async () => {
   const browser = await puppeteer.launch({
     headless: false,
-    // executablePath: '/usr/bin/chromium-browser',
+    executablePath:executablePath(),
     args: [
       '--enable-software-rasterizer',
       '--enable-features=WebGL2ComputeRenderingContext',
@@ -21,16 +20,12 @@ const fs = require('fs');
 
   await page.goto('chrome://gpu');
   console.log("New link")
-  console.log("Takeing ss")
-
+ 
   const screenshotBuffer=await page.screenshot({ path: 'images/webgl-screenshot.png' });
-  console.log("ss done")
   
   // Write the data to a file outside the Docker container
   const filePath = 'images/webgl-screenshot.png'; // Replace with your desired file path
   fs.writeFileSync(filePath, screenshotBuffer);
   console.log("writing done")
-  
-  // await page.waitForTimeout(100000);
-await browser.close();
+  await browser.close();
 })();
