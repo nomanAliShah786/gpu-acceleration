@@ -11,21 +11,12 @@ RUN  apk add --no-cache nmap && \
     ttf-freefont \
     nss
 
-# We don't need the standalone Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
 WORKDIR /app
 
-COPY ./package.json ./
-# COPY ./package-lock.json ./
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-ENV PORT 3006
-EXPOSE 3006
-EXPOSE 2525
-# Set the executable path for Chromium
-ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
-CMD [ "npm", "start" ]
+CMD ["node", "index.js"]
