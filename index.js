@@ -3,19 +3,12 @@ const puppeteer = require('puppeteer');
 const { executablePath } = require('puppeteer')
 let automation = async () => {
   const browser = await puppeteer.launch({
-    headless: true,
-    // || '/usr/bin/chromium-browser'
+    headless: false,
     executablePath: executablePath(),
     ignoreDefaultArgs: ["--enable-automation"],
     defaultViewport: null,
     args: [
-      '--enable-software-rasterizer',
-      '--enable-features=WebGL2ComputeRenderingContext',
-      '--enable-gpu-sandbox',
-      '--enable-dev-shm-usage',
-      '--enable-gl-drawing-for-tests',
-      '--use-gl=egl',
-     '--no-sandbox'
+      '--enable-webgl' // enable WebGL hardware acceleration
     ]
   });
   console.log("Opening new page")
@@ -29,7 +22,8 @@ let automation = async () => {
   const webGPU = text.slice(-3)
   console.log(`Status: `)
   console.log(webGPU)
-  // await page.screenshot({ path: 'webgl-screenshot.png' });
+  await page.screenshot({ path: 'webgl-screenshot.png' });
+  // await page.waitForTimeout(20000)
   await browser.close();
 };
 automation();
