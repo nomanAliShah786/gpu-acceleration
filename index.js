@@ -6,7 +6,8 @@ const browser = await puppeteer.launch({
     headless: true,
     executablePath: '/usr/bin/chromium-browser',
     args: [
-      '--use-gl=angle' 
+      '--use-gl=angle',
+      '--no-sandbox' 
     ]
   });
   console.log("Opening new page")
