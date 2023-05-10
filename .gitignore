@@ -8,3 +8,5 @@ data/*
 debug.log
 # Errorschedules.json
 web.config
+webgl1.png
+webgl2.png
