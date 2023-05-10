@@ -3,21 +3,26 @@ const puppeteer = require('puppeteer');
 const { executablePath } = require('puppeteer')
 let automation = async () => {
   const browser = await puppeteer.launch({
-    headless: true,
-    executablePath: '/usr/bin/chromium-browser',
+    headless: false,
+    executablePath: executablePath(),
     args: [
-      '--enable-software-rasterizer',
-      '--enable-features=WebGL2ComputeRenderingContext',
       '--no-sandbox',
-      '--enable-gpu-sandbox',
-      '--enable-dev-shm-usage',
-      '--enable-gl-drawing-for-tests',
-      '--use-gl=egl',
-    ]
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--disable-gl-drawing-for-tests',
+      '--enable-webgl',
+      '--enable-webgl2',
+      '--disable-webgl-image-chromium',
+      '--disable-webgl-image-transport-surface',
+      '--disable-threaded-animations',
+      '--use-gl=angle',
+    ],
   });
+  
   console.log("Opening new page")
   const page = await browser.newPage();
-
   await page.goto('chrome://gpu');
   console.log("Opening link")
   const ul = await (await page.evaluateHandle(`document.querySelector("body > info-view").shadowRoot.querySelector("div:nth-child(3) > ul")`)).asElement();
