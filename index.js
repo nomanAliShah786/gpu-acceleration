@@ -3,8 +3,6 @@ const puppeteer = require('puppeteer');
 const { executablePath } = require('puppeteer')
 let automation = async () => {
   const browser = await puppeteer.launch({
-    headless: false,
-    // executablePath: executablePath(),
     executablePath: '/usr/bin/chromium-browser',
     ignoreDefaultArgs: ["--enable-automation"],
     defaultViewport: null,
