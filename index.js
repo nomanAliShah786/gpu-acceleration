@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
     args: [
       '--disable-web-security',
       '--disable-features=IsolateOrigins,site-per-process',
