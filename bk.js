@@ -1,33 +1,25 @@
-const fs = require('fs');
 const puppeteer = require('puppeteer');
-const { executablePath } = require('puppeteer')
-let automation = async () => {
+
+(async () => {
   const browser = await puppeteer.launch({
-    headless: true,
-    executablePath: '/usr/bin/chromium-browser',
-    args: [
-      '--enable-software-rasterizer',
-      '--enable-features=WebGL2ComputeRenderingContext',
-      '--no-sandbox',
-      '--enable-gpu-sandbox',
-      '--enable-dev-shm-usage',
-      '--enable-gl-drawing-for-tests',
-      '--use-gl=egl',
-    ]
+    headless: false,
   });
-  console.log("Opening new page")
   const page = await browser.newPage();
 
-  await page.goto('chrome://gpu');
-  console.log("Opening link")
-  const ul = await (await page.evaluateHandle(`document.querySelector("body > info-view").shadowRoot.querySelector("div:nth-child(3) > ul")`)).asElement();
-  const text = await page.evaluate((ul) => {
-    return Array.from(ul.children).map(li => li.textContent)
-  }, ul)
-  const webGPU = text.slice(-3)
-  console.log(`Status: `)
-  console.log(webGPU)
-  await page.screenshot({ path: 'webgl-screenshot.png' });
+  // Test for webgl support
+  // e.g. https://developer.mozilla.org/en-US/docs/Learn/WebGL/By_example/Detect_WebGL
+  const webgl = await page.evaluate(() => {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl');
+    const expGl = canvas.getContext('experimental-webgl');
+
+    return {
+      gl: gl && gl instanceof WebGLRenderingContext,
+      expGl: expGl && expGl instanceof WebGLRenderingContext,
+    };
+  });
+
+  console.log('WebGL Support:', webgl);
+await page.waitForTimeout(20000)
   await browser.close();
-};
-automation();
+})();
