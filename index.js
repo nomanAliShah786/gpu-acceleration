@@ -20,7 +20,7 @@ const browser = await puppeteer.launch({
   const webGPU = text.slice(-3)
   console.log(`Status: `)
   console.log(webGPU)
-  // await page.screenshot({ path: 'webgl-screenshot.png' });
+  await page.screenshot({ path: 'webgl-screenshot.png' });
   await browser.close();
 };
 automation();
