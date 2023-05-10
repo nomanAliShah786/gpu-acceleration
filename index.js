@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const { executablePath } = require('puppeteer')
 let automation = async () => {
 const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     executablePath: '/usr/bin/chromium-browser',
     args: [
       '--use-gl=angle' 
